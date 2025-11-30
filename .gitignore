@@ -1,0 +1,24 @@
+
+letsencrypt/**
+
+
+# Backend
+
+**/__pycache__/**
+**/.env
+**/.env.*
+**.db
+
+
+# Frontend
+
+**/node_modules/**
+**/.vite/**
+
+# Playwright
+node_modules/
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/

@@ -1,0 +1,22 @@
+{
+  "name": "sample_text_application",
+  "version": "1.0.0",
+  "description": "Sample Text Application is a full-stack application composed of a **Python backend** (managed with Poetry) and a **TypeScript frontend** (using npm and Vite).   It provides an integrated environment for AI-driven exploration and analysis, supported by robust local development tooling.",
+  "main": "index.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kplatis/fullstack-monorepo-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kplatis/fullstack-monorepo-template/issues"
+  },
+  "homepage": "https://github.com/kplatis/fullstack-monorepo-template#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.56.0",
+    "@types/node": "^24.7.2"
+  }
+}

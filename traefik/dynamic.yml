@@ -1,0 +1,11 @@
+http:
+  middlewares:
+    secureHeaders:
+      headers:
+        frameDeny: true
+        sslRedirect: true
+
+tls:
+  options:
+    default:
+      minVersion: VersionTLS12
