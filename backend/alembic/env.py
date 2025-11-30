@@ -7,7 +7,7 @@ import pathlib
 
 from api.database import Base
 from api.settings import Settings
-from api.models.game import Game, City, Guess
+from api.models.games import Game, City, Guess
 
 sys.path.append(str(pathlib.Path(__file__).resolve().parents[1]))
 

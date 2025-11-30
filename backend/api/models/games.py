@@ -3,7 +3,7 @@ Model definition for game
 """
 
 import uuid
-from sqlalchemy import Column, UUID, DateTime, Enum, String, func
+from sqlalchemy import Column, UUID, DateTime, Enum, ForeignKey, String, func
 from sqlalchemy.orm import relationship
 
 from api.database import Base
@@ -58,8 +58,8 @@ class Guess(Base):
     guessed_at = Column(DateTime(timezone=True), server_default=func.now())
 
     # relationships
-    game_id = Column(UUID(as_uuid=True), nullable=False)
+    game_id = Column(UUID, ForeignKey("games.id"))
     game = relationship("Game", back_populates="guesses", lazy="selectin")
 
-    city_id = Column(UUID(as_uuid=True), nullable=False)
+    city_id = Column(UUID, ForeignKey("cities.id"))
     city = relationship("City", back_populates="guesses", lazy="selectin")

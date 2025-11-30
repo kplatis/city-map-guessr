@@ -5,7 +5,7 @@ from datetime import datetime
 from sqlalchemy import insert
 
 from api.database import SessionLocal
-from api.models.game import City, Game
+from api.models.games import City, Game
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 DATA_FILE_PATH = os.path.join(CURRENT_DIR, "data")
