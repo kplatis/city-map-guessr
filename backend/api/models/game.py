@@ -3,10 +3,11 @@ Model definition for game
 """
 
 import uuid
-from sqlalchemy import Column, UUID, DateTime, String, func
+from sqlalchemy import Column, UUID, DateTime, Enum, String, func
 from sqlalchemy.orm import relationship
 
 from api.database import Base
+from enums import Continent, Country
 
 
 class Game(Base):
@@ -36,8 +37,8 @@ class City(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
 
     name = Column(String, nullable=False)
-    country = Column(String, nullable=False)
-    continent = Column(String, nullable=False)
+    country = Column(Enum(Country, name="country"), nullable=False, default=Country.ALBANIA)
+    continent = Column(Enum(Continent, name="continent"), nullable=False, default=Continent.EUROPE)
     latitude = Column(String, nullable=False)
     longitude = Column(String, nullable=False)
 
