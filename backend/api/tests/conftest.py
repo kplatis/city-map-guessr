@@ -3,7 +3,6 @@ import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.database import SessionLocal, create_tables
-from dev.seed_data import seed_data
 from api.models.games import Game, City
 from datetime import datetime
 import uuid
@@ -20,7 +19,17 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
 
 
 @pytest_asyncio.fixture
-async def populated_db_session(empty_db_session: AsyncSession) -> AsyncGenerator[AsyncSession, None]:
+async def mock_games() -> list[Game]:
+    return [
+        Game(id=uuid.uuid4(), started_at=datetime(2025, 11, 30, 10, 0, 0), ended_at=None, map_image=f"map{i}.png")
+        for i in range(10)
+    ]
+
+
+@pytest_asyncio.fixture
+async def populated_db_session(
+    mock_games: list[Game], empty_db_session: AsyncSession
+) -> AsyncGenerator[AsyncSession, None]:
     """
     Defines the main database which is pre-populated with seed data
     """
@@ -36,12 +45,7 @@ async def populated_db_session(empty_db_session: AsyncSession) -> AsyncGenerator
     await empty_db_session.commit()
 
     # Add games
-    empty_db_session.add_all(
-        [
-            Game(id=uuid.uuid4(), started_at=datetime(2025, 11, 30, 10, 0, 0), ended_at=None, map_image=f"map{i}.png")
-            for i in range(10)
-        ]
-    )
+    empty_db_session.add_all(mock_games)
     await empty_db_session.commit()
 
     yield empty_db_session
