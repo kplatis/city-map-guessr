@@ -7,7 +7,7 @@ from sqlalchemy import Column, UUID, DateTime, Enum, String, func
 from sqlalchemy.orm import relationship
 
 from api.database import Base
-from enums import Continent, Country
+from api.enums import Continent, Country
 
 
 class Game(Base):
