@@ -1,11 +1,12 @@
+import uuid
 from typing import AsyncGenerator
+from datetime import datetime
 import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 
+
 from api.database import SessionLocal, create_tables
 from api.models.games import Game, City
-from datetime import datetime
-import uuid
 
 
 @pytest_asyncio.fixture(name="empty_db_session")

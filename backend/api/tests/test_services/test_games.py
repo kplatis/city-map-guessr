@@ -11,6 +11,9 @@ class TestGamesServices:
 
     @pytest.mark.asyncio
     async def test_retrieve_games(self, mock_games, empty_db_session):
+        """
+        Test retrieve_games service
+        """
         pagination_params = PaginationParams(page=1, page_size=10)
         with patch("api.services.games.list_games", return_value=mock_games), patch(
             "api.services.games.get_total_items_of_model", return_value=[10, 1]
