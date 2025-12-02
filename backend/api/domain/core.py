@@ -6,9 +6,7 @@ T = TypeVar("T")
 
 @dataclass
 class PaginationParams:
-    """
-    Domain model for Pagination Params
-    """
+    """Domain model for Pagination Params"""
 
     page: int
     page_size: int
@@ -16,9 +14,7 @@ class PaginationParams:
 
 @dataclass
 class ListingResult(Generic[T]):
-    """
-    DTO class representing a paginated listing result
-    """
+    """Domain model representing a paginated listing result"""
 
     items: list[T]
     total_items: int

@@ -4,9 +4,7 @@ from datetime import datetime
 
 @dataclass
 class Game:
-    """
-    Domain model for Game
-    """
+    """Domain model for Game"""
 
     id: str
     started_at: datetime

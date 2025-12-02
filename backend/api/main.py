@@ -1,19 +1,17 @@
-"""
-Main application
-"""
+"""Main application"""
 
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers.health import router as health_router
+
 from api.routers.games import games_router
+from api.routers.health import router as health_router
 from api.settings import Settings
 
 settings = Settings()
 
 
-def initialize_application():
-    """
-    Initialize the fastapi application
+def initialize_application() -> FastAPI:
+    """Initialize the fastapi application
 
     1. Include routers
     2. Mount static folder

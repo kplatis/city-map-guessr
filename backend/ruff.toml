@@ -1,0 +1,21 @@
+
+
+exclude = ["**/alembic/**"]
+
+[lint]
+
+select = ["ALL"] # Selecting all ruff rules. To ignore specific rules, use the 'ignore' option below.
+
+
+ignore = [
+    "E501", # line-too-long
+    "D100", # missing docstring in module
+    "D104", # missing docstring in public package
+    "D202", # pydocstyle rules
+    "D400", # first line ends with period
+    "D401", # first line should be in imperative mood
+    "D415", # first line should end with period question mark
+    "INP001",
+    "S101", # use of assert detected
+    "PLR2004", # magic numbers
+]

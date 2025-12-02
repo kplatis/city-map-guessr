@@ -2,9 +2,7 @@ from enum import Enum
 
 
 class Continent(Enum):
-    """
-    Enum representing continents
-    """
+    """Enum representing continents"""
 
     AFRICA = "Africa"
     ANTARCTICA = "Antarctica"
@@ -16,9 +14,7 @@ class Continent(Enum):
 
 
 class Country(Enum):
-    """
-    Enum representing countries
-    """
+    """Enum representing countries"""
 
     ALBANIA = "Albania"
     ANDORRA = "Andorra"
