@@ -6,7 +6,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 T = TypeVar("T")
 
 
-# TODO: ADD TESTS FOR THIS FUNCTION
 async def get_total_items_of_model(model: Generic[T], page_size: int, db: AsyncSession) -> tuple[int, int]:
     """
     Retrieves the total items and pages of the model
