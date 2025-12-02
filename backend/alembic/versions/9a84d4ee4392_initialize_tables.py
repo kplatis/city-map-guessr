@@ -1,8 +1,8 @@
 """initialize tables
 
-Revision ID: 82726fd13944
+Revision ID: 9a84d4ee4392
 Revises:
-Create Date: 2025-11-30 19:42:01.866150
+Create Date: 2025-11-30 21:46:39.114500
 
 """
 
@@ -13,7 +13,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "82726fd13944"
+revision: str = "9a84d4ee4392"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -106,8 +106,16 @@ def upgrade() -> None:
         "guesses",
         sa.Column("id", sa.UUID(), nullable=False),
         sa.Column("guessed_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=True),
-        sa.Column("game_id", sa.UUID(), nullable=False),
-        sa.Column("city_id", sa.UUID(), nullable=False),
+        sa.Column("game_id", sa.UUID(), nullable=True),
+        sa.Column("city_id", sa.UUID(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ["city_id"],
+            ["cities.id"],
+        ),
+        sa.ForeignKeyConstraint(
+            ["game_id"],
+            ["games.id"],
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
     # ### end Alembic commands ###

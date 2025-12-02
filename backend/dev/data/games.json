@@ -1,0 +1,32 @@
+[
+  {
+    "id": "e3b0c442-98fc-4b2d-8f7e-1a2b3c4d5e6f",
+    "started_at": "2025-11-30T10:00:00Z",
+    "ended_at": null,
+    "map_image": "map1.png"
+  },
+  {
+    "id": "f5a1c3d2-4e6b-4c8d-9a1b-2c3d4e5f6a7b",
+    "started_at": "2025-11-30T11:00:00Z",
+    "ended_at": "2025-11-30T11:30:00Z",
+    "map_image": "map2.png"
+  },
+  {
+    "id": "a7b8c9d0-1e2f-4a3b-8c9d-0e1f2a3b4c5d",
+    "started_at": "2025-11-30T12:00:00Z",
+    "ended_at": null,
+    "map_image": "map3.png"
+  },
+  {
+    "id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
+    "started_at": "2025-11-30T13:00:00Z",
+    "ended_at": "2025-11-30T13:45:00Z",
+    "map_image": "map4.png"
+  },
+  {
+    "id": "c4d5e6f7-a8b9-4c0d-8e1f-2a3b4c5d6e7f",
+    "started_at": "2025-11-30T14:00:00Z",
+    "ended_at": null,
+    "map_image": "map5.png"
+  }
+]
