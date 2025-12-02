@@ -7,17 +7,15 @@ from api.schemas.core import PaginatedResponse, PaginationInfoOut, PaginationPar
 from api.schemas.games import GameOut
 from api.services.games import retrieve_games
 
-
 games_router = APIRouter()
 
 
-@games_router.get("", response_model=PaginatedResponse[GameOut], operation_id="retrieveGames")
+@games_router.get("", operation_id="retrieveGames")
 async def retrieve_games_endpoint(
-    pagination_parameters: PaginationParamsIn = Depends(), db: AsyncSession = Depends(get_db)
-):
-    """
-    Retrieve all games with pagination
-    """
+    pagination_parameters: PaginationParamsIn = Depends(),  # noqa: B008
+    db: AsyncSession = Depends(get_db),  # noqa: B008
+) -> PaginatedResponse[GameOut]:
+    """Retrieve all games with pagination"""
 
     games = await retrieve_games(pagination_params=pagination_parameters.to_domain(), db=db)
     return PaginatedResponse[GameOut](

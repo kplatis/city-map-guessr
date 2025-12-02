@@ -1,20 +1,19 @@
+from http import HTTPStatus
 from unittest.mock import patch
+
 import pytest
+from httpx import AsyncClient
 
 from api.domain.core import ListingResult
 from api.domain.games import Game
 
 
 class TestHealthRouter:
-    """
-    Tests for the Health router.
-    """
+    """Tests for the Health router."""
 
     @pytest.mark.asyncio
-    async def test_retrieve_games(self, test_client, mock_games):
-        """
-        Tests retrieval of the health status.
-        """
+    async def test_retrieve_games(self, test_client: AsyncClient, mock_games: list[Game]) -> None:
+        """Tests retrieval of the health status."""
         with patch(
             "api.routers.games.retrieve_games",
             return_value=ListingResult(
@@ -28,7 +27,7 @@ class TestHealthRouter:
         ):
             response = await test_client.get("/games")
 
-            assert response.status_code == 200
+            assert response.status_code == HTTPStatus.OK
             data = response.json()
-            assert data["pagination"]["total_items"] == 10
-            assert len(data["items"]) == 10
+            assert data["pagination"]["total_items"] == len(mock_games)
+            assert len(data["items"]) == len(mock_games)

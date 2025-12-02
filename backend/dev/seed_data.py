@@ -1,32 +1,34 @@
+"""Seed initial data into the database"""
+
 import asyncio
 import json
-import os
 from datetime import datetime
+from pathlib import Path
+
+import anyio
 from sqlalchemy import insert
 
 from api.database import SessionLocal
 from api.models.games import City, Game
 
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-DATA_FILE_PATH = os.path.join(CURRENT_DIR, "data")
+CURRENT_DIR = Path(Path(__file__).resolve()).parent
+DATA_FILE_PATH = Path(CURRENT_DIR) / "data"
 
 
-async def seed_data():
-    """
-    Function to seed initial data into the database.
-    """
+async def seed_data() -> None:
+    """Seed initial data into the database."""
 
     # Start an async session
     async with SessionLocal() as session:
         try:
-            print("⬆️ Importing cities...")
-            with open(f"{DATA_FILE_PATH}/cities.json", "r") as file:
+            print("⬆️ Importing cities...")  # noqa: T201
+            async with await anyio.open_file(f"{DATA_FILE_PATH}/cities.json") as file:
                 cities = json.load(file)
                 await session.execute(insert(City).values(cities))
             await session.commit()
 
-            print("⬆️ Importing games...")
-            with open(f"{DATA_FILE_PATH}/games.json", "r") as file:
+            print("⬆️ Importing games...")  # noqa: T201
+            async with await anyio.open_file(f"{DATA_FILE_PATH}/games.json") as file:
                 games = json.load(file)
                 # Convert started_at and ended_at to datetime objects
                 for game in games:
@@ -39,7 +41,7 @@ async def seed_data():
 
         except Exception as e:
             await session.rollback()
-            print(f"❌ An error occurred: {e}")
+            print(f"❌ An error occurred: {e}")  # noqa: T201
             raise
 
         finally:

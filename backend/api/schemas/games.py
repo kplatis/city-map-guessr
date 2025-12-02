@@ -1,11 +1,10 @@
 from datetime import datetime
+
 from pydantic import UUID4, BaseModel, ConfigDict
 
 
 class GameOut(BaseModel):
-    """
-    Pydantic model representing a game output
-    """
+    """Pydantic model representing a game output"""
 
     model_config = ConfigDict(from_attributes=True)
 

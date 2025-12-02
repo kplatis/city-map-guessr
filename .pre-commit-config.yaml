@@ -7,13 +7,13 @@ repos:
         name: Format Python code
         files: ^backend/
 
-  - repo: local
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    # Ruff version.
+    rev: v0.14.7
     hooks:
-      - id: pylint
-        name: Lint Python code with pylint
-        entry: bash -c "cd backend && poetry run pylint api"
-        language: system
-        types: [python]
+      # Run the linter.
+      - id: ruff-check
+        name: Lint Python code with Ruff
         files: ^backend/
 
   # --- Node/TypeScript hooks (frontend) ---

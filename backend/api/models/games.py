@@ -1,9 +1,8 @@
-"""
-Model definition for game
-"""
+"""Model definition for game"""
 
 import uuid
-from sqlalchemy import Column, UUID, DateTime, Enum, ForeignKey, String, func
+
+from sqlalchemy import UUID, Column, DateTime, Enum, ForeignKey, String, func
 from sqlalchemy.orm import relationship
 
 from api.database import Base
@@ -11,9 +10,7 @@ from api.enums import Continent, Country
 
 
 class Game(Base):
-    """
-    SQLAlchemy model for game
-    """
+    """SQLAlchemy model for game"""
 
     __tablename__ = "games"
 
@@ -28,9 +25,7 @@ class Game(Base):
 
 
 class City(Base):
-    """
-    SQLAlchemy model for city
-    """
+    """SQLAlchemy model for city"""
 
     __tablename__ = "cities"
 
@@ -47,9 +42,7 @@ class City(Base):
 
 
 class Guess(Base):
-    """
-    SQLAlchemy model for guess
-    """
+    """SQLAlchemy model for guess"""
 
     __tablename__ = "guesses"
 
