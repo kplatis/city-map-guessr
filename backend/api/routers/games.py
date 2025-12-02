@@ -11,7 +11,7 @@ from api.services.games import retrieve_games
 games_router = APIRouter()
 
 
-@games_router.get("/", response_model=PaginatedResponse[GameOut], operation_id="retrieveGames")
+@games_router.get("", response_model=PaginatedResponse[GameOut], operation_id="retrieveGames")
 async def retrieve_games_endpoint(
     pagination_parameters: PaginationParamsIn = Depends(), db: AsyncSession = Depends(get_db)
 ):
