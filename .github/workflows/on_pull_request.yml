@@ -38,7 +38,7 @@ jobs:
 
       - name: Run Ruff
         working-directory: backend
-        run: poetry run ruff --check
+        run: poetry run ruff check
 
       - name: Run Black
         working-directory: backend
