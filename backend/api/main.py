@@ -5,6 +5,7 @@ Main application
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from api.routers.health import router as health_router
+from api.routers.games import games_router
 from api.settings import Settings
 
 settings = Settings()
@@ -37,6 +38,7 @@ def initialize_application():
 
     # Add routers in application
     base_router.include_router(health_router, prefix="/health", tags=["Health"])
+    base_router.include_router(games_router, prefix="/games", tags=["Games"])
 
     application.include_router(base_router)
 

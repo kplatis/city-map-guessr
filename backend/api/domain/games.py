@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+from datetime import datetime
 
 
 @dataclass
@@ -8,6 +9,6 @@ class Game:
     """
 
     id: str
-    started_at: str
-    ended_at: str | None
+    started_at: datetime
+    ended_at: datetime | None
     map_image: str

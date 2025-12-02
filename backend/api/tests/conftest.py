@@ -18,8 +18,11 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
-@pytest_asyncio.fixture
-async def mock_games() -> list[Game]:
+@pytest_asyncio.fixture(name="mock_games")
+async def mock_games_list() -> list[Game]:
+    """
+    Provides a list of mock games
+    """
     return [
         Game(id=uuid.uuid4(), started_at=datetime(2025, 11, 30, 10, 0, 0), ended_at=None, map_image=f"map{i}.png")
         for i in range(10)

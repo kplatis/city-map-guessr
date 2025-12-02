@@ -13,4 +13,11 @@ async def retrieve_games(pagination_params: PaginationParams, db: AsyncSession) 
     """
     games = await list_games(page=pagination_params.page, page_size=pagination_params.page_size, db=db)
     total_items, total_pages = await get_total_items_of_model(GameModel, pagination_params.page_size, db)
-    return ListingResult(items=games, total_items=total_items, total_pages=total_pages)
+    return ListingResult(
+        items=[
+            Game(id=game.id, started_at=game.started_at, ended_at=game.ended_at, map_image=game.map_image)
+            for game in games
+        ],
+        total_items=total_items,
+        total_pages=total_pages,
+    )
