@@ -28,9 +28,3 @@ ruff = "^0.14.7"
 
 [tool.black]
 line-length = 120
-
-[tool.pylint]
-max-line-length = 120
-
-[tool.pylint.messages_control]
-disable = ["unnecessary-pass", "too-few-public-methods", "not-callable", "missing-module-docstring", "fixme"]

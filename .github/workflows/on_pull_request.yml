@@ -36,9 +36,9 @@ jobs:
         run: poetry install --no-root
         working-directory: backend
 
-      - name: Run Pylint
+      - name: Run Ruff
         working-directory: backend
-        run: poetry run pylint api
+        run: poetry run ruff --check
 
       - name: Run Black
         working-directory: backend

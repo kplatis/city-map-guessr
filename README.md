@@ -26,7 +26,7 @@ cd backend
 poetry install
 ```
 
-This installs all backend dependencies, including formatters and linters such as Black and Pylint.
+This installs all backend dependencies, including formatters and linters such as Black and Ruff.
 
 ### 🧩 Frontend setup
 
@@ -52,7 +52,7 @@ poetry run pre-commit install
 This installs a Git hook that will automatically:
 
 - Format Python code with Black
-- Lint Python code with Pylint
+- Lint Python code with Ruff
 - Lint TypeScript with ESLint
 - Check code formatting with Prettier
 

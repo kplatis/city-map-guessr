@@ -1,7 +1,5 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "pylint.args": ["--rcfile=pyproject.toml"],
-  "pylint.cwd": "${workspaceFolder}/backend",
   "python.analysis.extraPaths": ["${workspaceFolder}/backend"],
   "python.autoComplete.extraPaths": ["${workspaceFolder}/backend"],
   "black-formatter.args": [
