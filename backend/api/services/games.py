@@ -1,7 +1,9 @@
+import random
+
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.crud.core import get_total_items_of_model
-from api.crud.games import list_games
+from api.crud.games import create_game, list_games, read_cities
 from api.domain.core import ListingResult, PaginationParams
 from api.domain.games import Game
 from api.models.games import Game as GameModel
@@ -19,3 +21,13 @@ async def retrieve_games(pagination_params: PaginationParams, db: AsyncSession) 
         total_items=total_items,
         total_pages=total_pages,
     )
+
+
+# TODO(kplatis): add tests
+async def initialize_game(db: AsyncSession) -> Game:
+    """Initialize a new game in the database."""
+    all_cities = await read_cities(db)
+
+    random_cities = random.sample(all_cities, k=min(5, len(all_cities)))
+    game = await create_game(cities=random_cities, db=db)
+    return Game(id=game.id, started_at=game.started_at, ended_at=game.ended_at, map_image=game.correct_city.map_image)
