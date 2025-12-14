@@ -1,8 +1,8 @@
 """initialize tables
 
-Revision ID: 9a84d4ee4392
+Revision ID: 7c5ebbef717c
 Revises:
-Create Date: 2025-11-30 21:46:39.114500
+Create Date: 2025-12-14 15:18:37.355742
 
 """
 
@@ -13,7 +13,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "9a84d4ee4392"
+revision: str = "7c5ebbef717c"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -92,6 +92,7 @@ def upgrade() -> None:
         ),
         sa.Column("latitude", sa.String(), nullable=False),
         sa.Column("longitude", sa.String(), nullable=False),
+        sa.Column("map_image", sa.String(), nullable=False),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(
@@ -99,7 +100,11 @@ def upgrade() -> None:
         sa.Column("id", sa.UUID(), nullable=False),
         sa.Column("started_at", sa.DateTime(timezone=True), server_default=sa.text("now()"), nullable=True),
         sa.Column("ended_at", sa.DateTime(timezone=True), nullable=True),
-        sa.Column("map_image", sa.String(), nullable=False),
+        sa.Column("correct_city_id", sa.UUID(), nullable=True),
+        sa.ForeignKeyConstraint(
+            ["correct_city_id"],
+            ["cities.id"],
+        ),
         sa.PrimaryKeyConstraint("id"),
     )
     op.create_table(

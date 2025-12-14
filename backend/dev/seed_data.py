@@ -23,13 +23,15 @@ async def seed_data() -> None:
         try:
             print("⬆️ Importing cities...")  # noqa: T201
             async with await anyio.open_file(f"{DATA_FILE_PATH}/cities.json") as file:
-                cities = json.load(file)
+                cities_content = await file.read()
+                cities = json.loads(cities_content)
                 await session.execute(insert(City).values(cities))
             await session.commit()
 
             print("⬆️ Importing games...")  # noqa: T201
             async with await anyio.open_file(f"{DATA_FILE_PATH}/games.json") as file:
-                games = json.load(file)
+                games_content = await file.read()
+                games = json.loads(games_content)
                 # Convert started_at and ended_at to datetime objects
                 for game in games:
                     game["started_at"] = datetime.fromisoformat(game["started_at"].replace("Z", "+00:00"))

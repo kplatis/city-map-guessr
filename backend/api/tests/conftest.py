@@ -8,6 +8,7 @@ import pytest_asyncio
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.database import SessionLocal, create_tables
+from api.enums import Continent, Country
 from api.models.games import City, Game
 
 
@@ -19,17 +20,34 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
+@pytest_asyncio.fixture(name="mock_cities")
+async def mock_cities_list() -> list[City]:
+    """Provides a list of mock cities"""
+    return [
+        City(
+            id=uuid.uuid4(),
+            name=f"City {i}",
+            country=Country.GREECE,
+            continent=Continent.EUROPE,
+            latitude="0.0",
+            longitude="0.0",
+            map_image="https://example.com/city_map.png",
+        )
+        for i in range(10)
+    ]
+
+
 @pytest_asyncio.fixture(name="mock_games")
-async def mock_games_list() -> list[Game]:
+async def mock_games_list(mock_cities: list[City]) -> list[Game]:
     """Provides a list of mock games"""
     return [
         Game(
             id=uuid.uuid4(),
             started_at=datetime.datetime(2025, 11, 30, 10, 0, 0, tzinfo=datetime.UTC),
             ended_at=None,
-            map_image=f"map{i}.png",
+            correct_city=mock_cities[0],
         )
-        for i in range(10)
+        for _ in range(10)
     ]
 
 
@@ -47,6 +65,7 @@ async def populated_db_session(
         continent="EUROPE",
         latitude="41.3275",
         longitude="19.8187",
+        map_image="https://example.com/tirana_map.png",
     )
     city2 = City(
         id=uuid.uuid4(),
@@ -55,10 +74,15 @@ async def populated_db_session(
         continent="EUROPE",
         latitude="37.9838",
         longitude="23.7275",
+        map_image="https://example.com/athens_map.png",
     )
     # Add cities
     empty_db_session.add_all([city1, city2])
     await empty_db_session.commit()
+
+    # Assign correct_city_id for each game to a random city
+    for game in mock_games:
+        game.correct_city_id = city1.id
 
     # Add games
     empty_db_session.add_all(mock_games)
