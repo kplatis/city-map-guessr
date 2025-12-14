@@ -5,7 +5,8 @@
     "country": "DENMARK",
     "continent": "EUROPE",
     "latitude": "55.6761",
-    "longitude": "12.5683"
+    "longitude": "12.5683",
+    "map_image": "https://example.com/copenhagen_map.png"
   },
   {
     "id": "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6",
@@ -13,7 +14,8 @@
     "country": "UNITED_KINGDOM",
     "continent": "EUROPE",
     "latitude": "51.5074",
-    "longitude": "-0.1278"
+    "longitude": "-0.1278",
+    "map_image": "https://example.com/london_map.png"
   },
   {
     "id": "b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e",
@@ -21,7 +23,8 @@
     "country": "POLAND",
     "continent": "EUROPE",
     "latitude": "52.2297",
-    "longitude": "21.0122"
+    "longitude": "21.0122",
+    "map_image": "https://example.com/warsaw_map.png"
   },
   {
     "id": "c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f",
@@ -29,6 +32,7 @@
     "country": "GREECE",
     "continent": "EUROPE",
     "latitude": "40.6401",
-    "longitude": "22.9444"
+    "longitude": "22.9444",
+    "map_image": "https://example.com/thessaloniki_map.png"
   }
 ]

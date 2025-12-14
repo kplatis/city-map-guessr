@@ -18,10 +18,11 @@ class Game(Base):
 
     started_at = Column(DateTime(timezone=True), server_default=func.now())
     ended_at = Column(DateTime(timezone=True), nullable=True)
-    map_image = Column(String, nullable=False)
 
     # relationships
     guesses = relationship("Guess", back_populates="game", lazy="selectin")
+    correct_city_id = Column(UUID, ForeignKey("cities.id"))
+    correct_city = relationship("City", lazy="selectin")
 
 
 class City(Base):
@@ -36,9 +37,11 @@ class City(Base):
     continent = Column(Enum(Continent, name="continent"), nullable=False, default=Continent.EUROPE)
     latitude = Column(String, nullable=False)
     longitude = Column(String, nullable=False)
+    map_image = Column(String, nullable=False)
 
     # relationships
     guesses = relationship("Guess", back_populates="city", lazy="selectin")
+    games_as_correct = relationship("Game", back_populates="correct_city", lazy="selectin")
 
 
 class Guess(Base):

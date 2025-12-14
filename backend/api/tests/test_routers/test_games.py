@@ -8,17 +8,17 @@ from api.domain.core import ListingResult
 from api.domain.games import Game
 
 
-class TestHealthRouter:
-    """Tests for the Health router."""
+class TestGamesRouter:
+    """Tests for the Games router."""
 
     @pytest.mark.asyncio
     async def test_retrieve_games(self, test_client: AsyncClient, mock_games: list[Game]) -> None:
-        """Tests retrieval of the health status."""
+        """Tests retrieval of the games."""
         with patch(
             "api.routers.games.retrieve_games",
             return_value=ListingResult(
                 items=[
-                    Game(id=game.id, started_at=game.started_at, ended_at=game.ended_at, map_image=game.map_image)
+                    Game(id=game.id, started_at=game.started_at, ended_at=game.ended_at, map_image="test_image")
                     for game in mock_games
                 ],
                 total_items=10,

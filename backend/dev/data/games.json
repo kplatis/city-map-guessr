@@ -3,30 +3,30 @@
     "id": "e3b0c442-98fc-4b2d-8f7e-1a2b3c4d5e6f",
     "started_at": "2025-11-30T10:00:00Z",
     "ended_at": null,
-    "map_image": "map1.png"
+    "correct_city_id": "e7b8c2e2-2c7e-4e6a-9e2a-8b7c2e2d4f6a"
   },
   {
     "id": "f5a1c3d2-4e6b-4c8d-9a1b-2c3d4e5f6a7b",
     "started_at": "2025-11-30T11:00:00Z",
     "ended_at": "2025-11-30T11:30:00Z",
-    "map_image": "map2.png"
+    "correct_city_id": "a1b2c3d4-e5f6-7a8b-9c0d-e1f2a3b4c5d6"
   },
   {
     "id": "a7b8c9d0-1e2f-4a3b-8c9d-0e1f2a3b4c5d",
     "started_at": "2025-11-30T12:00:00Z",
     "ended_at": null,
-    "map_image": "map3.png"
+    "correct_city_id": "e7b8c2e2-2c7e-4e6a-9e2a-8b7c2e2d4f6a"
   },
   {
     "id": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
     "started_at": "2025-11-30T13:00:00Z",
     "ended_at": "2025-11-30T13:45:00Z",
-    "map_image": "map4.png"
+    "correct_city_id": "c3d4e5f6-a7b8-9c0d-1e2f-3a4b5c6d7e8f"
   },
   {
     "id": "c4d5e6f7-a8b9-4c0d-8e1f-2a3b4c5d6e7f",
     "started_at": "2025-11-30T14:00:00Z",
     "ended_at": null,
-    "map_image": "map5.png"
+    "correct_city_id": "b2c3d4e5-f6a7-8b9c-0d1e-2f3a4b5c6d7e"
   }
 ]
