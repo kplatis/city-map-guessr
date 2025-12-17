@@ -42,6 +42,8 @@ class TestGamesCRUD:
         game = await create_game(cities=cities, db=populated_db_session)
         assert game.id is not None
         assert len(game.cities) == len(cities)
+        assert game.correct_city in cities
+        assert game.correct_city is not None
 
     @pytest.mark.asyncio
     async def test_create_game_with_empty_cities(self, populated_db_session: AsyncSession) -> None:
