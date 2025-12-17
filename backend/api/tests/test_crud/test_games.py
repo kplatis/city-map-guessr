@@ -1,7 +1,7 @@
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from api.crud.games import list_games, read_cities, create_game
+from api.crud.games import create_game, list_games, read_cities
 from api.models.games import City
 
 
@@ -47,7 +47,7 @@ class TestGamesCRUD:
 
     @pytest.mark.asyncio
     async def test_create_game_with_empty_cities(
-        self, mock_cities: list[City], populated_db_session: AsyncSession
+        self, mock_cities: list[City], populated_db_session: AsyncSession,
     ) -> None:
         """Test creating a game with an empty list of cities"""
         game = await create_game(cities=[], correct_city=mock_cities[0], db=populated_db_session)

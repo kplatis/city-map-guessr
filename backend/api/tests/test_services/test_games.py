@@ -26,7 +26,7 @@ class TestGamesServices:
 
     @pytest.mark.asyncio
     async def test_initialize_game(
-        self, mock_game: Game, mock_cities: list[City], empty_db_session: AsyncSession
+        self, mock_game: Game, mock_cities: list[City], empty_db_session: AsyncSession,
     ) -> None:
         """Test initialize_game service"""
 
