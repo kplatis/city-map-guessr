@@ -2,6 +2,7 @@ import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.crud.games import list_games, read_cities, create_game
+from api.models.games import City
 
 
 class TestGamesCRUD:
@@ -36,18 +37,19 @@ class TestGamesCRUD:
         assert len(cities) == 0
 
     @pytest.mark.asyncio
-    async def test_create_game_with_cities(self, populated_db_session: AsyncSession) -> None:
+    async def test_create_game_with_cities(self, mock_cities: list[City], populated_db_session: AsyncSession) -> None:
         """Test creating a game with a list of cities"""
-        cities = await read_cities(db=populated_db_session)
-        game = await create_game(cities=cities, db=populated_db_session)
+        game = await create_game(cities=mock_cities, correct_city=mock_cities[0], db=populated_db_session)
         assert game.id is not None
-        assert len(game.cities) == len(cities)
-        assert game.correct_city in cities
+        assert len(game.cities) == len(mock_cities)
+        assert game.correct_city in mock_cities
         assert game.correct_city is not None
 
     @pytest.mark.asyncio
-    async def test_create_game_with_empty_cities(self, populated_db_session: AsyncSession) -> None:
+    async def test_create_game_with_empty_cities(
+        self, mock_cities: list[City], populated_db_session: AsyncSession
+    ) -> None:
         """Test creating a game with an empty list of cities"""
-        game = await create_game(cities=[], db=populated_db_session)
+        game = await create_game(cities=[], correct_city=mock_cities[0], db=populated_db_session)
         assert game.id is not None
         assert len(game.cities) == 0

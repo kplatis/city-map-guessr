@@ -5,15 +5,15 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from api.database import get_db
 from api.schemas.core import PaginatedResponse, PaginationInfoOut, PaginationParamsIn
 from api.schemas.games import GameOut
-from api.services.games import retrieve_games
+from api.services.games import initialize_game, retrieve_games
 
 games_router = APIRouter()
 
 
 @games_router.get("", operation_id="retrieveGames")
 async def retrieve_games_endpoint(
-    pagination_parameters: PaginationParamsIn = Depends(),  # noqa: B008
-    db: AsyncSession = Depends(get_db),  # noqa: B008
+    pagination_parameters: PaginationParamsIn = Depends(),
+    db: AsyncSession = Depends(get_db),
 ) -> PaginatedResponse[GameOut]:
     """Retrieve all games with pagination"""
 
@@ -27,3 +27,13 @@ async def retrieve_games_endpoint(
             total_pages=games.total_pages,
         ),
     )
+
+
+@games_router.post("", operation_id="createGame")
+async def create_game_endpoint(
+    db: AsyncSession = Depends(get_db),
+) -> GameOut:
+    """Create a new game"""
+
+    created_game = await initialize_game(db=db)
+    return GameOut.model_validate(created_game)
