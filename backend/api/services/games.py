@@ -23,7 +23,6 @@ async def retrieve_games(pagination_params: PaginationParams, db: AsyncSession) 
     )
 
 
-# TODO(kplatis): add tests
 async def initialize_game(db: AsyncSession) -> Game:
     """Initialize a new game in the database."""
     all_cities = await read_cities(db)

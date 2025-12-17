@@ -20,6 +20,31 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
+@pytest_asyncio.fixture(name="mock_city")
+async def mock_city_object() -> City:
+    """Provides a list of mock cities"""
+    return City(
+        id=uuid.uuid4(),
+        name="City 1",
+        country=Country.GREECE,
+        continent=Continent.EUROPE,
+        latitude="0.0",
+        longitude="0.0",
+        map_image="https://example.com/city_map.png",
+    )
+
+
+@pytest_asyncio.fixture(name="mock_game")
+async def mock_game_object(mock_city: City) -> Game:
+    """Provides a list of mock games"""
+    return Game(
+        id=uuid.uuid4(),
+        started_at=datetime.datetime(2025, 11, 30, 10, 0, 0, tzinfo=datetime.UTC),
+        ended_at=None,
+        correct_city=mock_city,
+    )
+
+
 @pytest_asyncio.fixture(name="mock_cities")
 async def mock_cities_list() -> list[City]:
     """Provides a list of mock cities"""

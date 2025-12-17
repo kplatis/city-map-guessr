@@ -4,8 +4,8 @@ import pytest
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api.domain.core import PaginationParams
-from api.models.games import Game
-from api.services.games import retrieve_games
+from api.models.games import City, Game
+from api.services.games import initialize_game, retrieve_games
 
 
 class TestGamesServices:
@@ -23,3 +23,19 @@ class TestGamesServices:
             assert len(result.items) == len(mock_games)
             assert result.total_items == len(mock_games)
             assert result.total_pages == 1
+
+    @pytest.mark.asyncio
+    async def test_initialize_game(
+        self, mock_game: Game, mock_cities: list[City], empty_db_session: AsyncSession
+    ) -> None:
+        """Test initialize_game service"""
+
+        with patch("api.services.games.read_cities", return_value=mock_cities), patch(
+            "api.services.games.create_game",
+            return_value=mock_game,
+        ):
+
+            result = await initialize_game(empty_db_session)
+            assert result.id is not None
+            assert result.map_image == "https://example.com/city_map.png"
+            assert result.ended_at is None
