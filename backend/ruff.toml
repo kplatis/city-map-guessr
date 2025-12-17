@@ -8,6 +8,7 @@ select = ["ALL"] # Selecting all ruff rules. To ignore specific rules, use the '
 
 
 ignore = [
+    "B008",
     "E501", # line-too-long
     "D100", # missing docstring in module
     "D104", # missing docstring in public package
