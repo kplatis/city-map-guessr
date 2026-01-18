@@ -17,9 +17,9 @@ async def read_cities(db: AsyncSession) -> list[City]:
     return result.scalars().all()
 
 
-async def create_game(cities: list[City], correct_city: City, db: AsyncSession) -> Game:
+async def create_game(correct_city: City, db: AsyncSession) -> Game:
     """Create a new game in the database."""
-    new_game = Game(ended_at=None, cities=cities, correct_city=correct_city)
+    new_game = Game(ended_at=None, correct_city=correct_city)
     db.add(new_game)
     await db.commit()
     await db.refresh(new_game)

@@ -39,9 +39,8 @@ class TestGamesCRUD:
     @pytest.mark.asyncio
     async def test_create_game_with_cities(self, mock_cities: list[City], populated_db_session: AsyncSession) -> None:
         """Test creating a game with a list of cities"""
-        game = await create_game(cities=mock_cities, correct_city=mock_cities[0], db=populated_db_session)
+        game = await create_game(correct_city=mock_cities[0], db=populated_db_session)
         assert game.id is not None
-        assert len(game.cities) == len(mock_cities)
         assert game.correct_city in mock_cities
         assert game.correct_city is not None
 
@@ -51,7 +50,6 @@ class TestGamesCRUD:
         populated_db_session: AsyncSession,
     ) -> None:
         """Test creating a game with an empty list of cities"""
-        game = await create_game(cities=[], correct_city=None, db=populated_db_session)
+        game = await create_game(correct_city=None, db=populated_db_session)
         assert game.id is not None
-        assert len(game.cities) == 0
         assert game.correct_city is None
