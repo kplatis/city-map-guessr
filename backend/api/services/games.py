@@ -27,7 +27,6 @@ async def initialize_game(db: AsyncSession) -> Game:
     """Initialize a new game in the database."""
     all_cities = await read_cities(db)
 
-    random_cities = random.sample(all_cities, k=min(5, len(all_cities)))
-    correct_city = random.choice(random_cities) if random_cities else None  # noqa: S311
-    game = await create_game(cities=random_cities, correct_city=correct_city, db=db)
+    correct_city = random.choice(all_cities) if all_cities else None  # noqa: S311
+    game = await create_game(correct_city=correct_city, db=db)
     return Game(id=game.id, started_at=game.started_at, ended_at=game.ended_at, map_image=game.correct_city.map_image)
