@@ -20,6 +20,31 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
+@pytest_asyncio.fixture(name="mock_city")
+async def mock_city_object() -> City:
+    """Provides a mock city object"""
+    return City(
+        id=uuid.uuid4(),
+        name="City 1",
+        country=Country.GREECE,
+        continent=Continent.EUROPE,
+        latitude="0.0",
+        longitude="0.0",
+        map_image="https://example.com/city_map.png",
+    )
+
+
+@pytest_asyncio.fixture(name="mock_game")
+async def mock_game_object(mock_city: City) -> Game:
+    """Provides a mock game object"""
+    return Game(
+        id=uuid.uuid4(),
+        started_at=datetime.datetime(2025, 11, 30, 10, 0, 0, tzinfo=datetime.UTC),
+        ended_at=None,
+        correct_city=mock_city,
+    )
+
+
 @pytest_asyncio.fixture(name="mock_cities")
 async def mock_cities_list() -> list[City]:
     """Provides a list of mock cities"""
@@ -53,7 +78,6 @@ async def mock_games_list(mock_cities: list[City]) -> list[Game]:
 
 @pytest_asyncio.fixture
 async def populated_db_session(
-    mock_games: list[Game],
     empty_db_session: AsyncSession,
 ) -> AsyncGenerator[AsyncSession, None]:
     """Defines the main database which is pre-populated with seed data"""
@@ -76,16 +100,23 @@ async def populated_db_session(
         longitude="23.7275",
         map_image="https://example.com/athens_map.png",
     )
+
+    game1 = Game(
+        id=uuid.uuid4(),
+        started_at=datetime.datetime(2025, 11, 30, 10, 0, 0, tzinfo=datetime.UTC),
+        ended_at=None,
+        correct_city=city1,
+    )
+
+    game2 = Game(
+        id=uuid.uuid4(),
+        started_at=datetime.datetime(2025, 11, 30, 10, 0, 0, tzinfo=datetime.UTC),
+        ended_at=None,
+        correct_city=city2,
+    )
+
     # Add cities
-    empty_db_session.add_all([city1, city2])
-    await empty_db_session.commit()
-
-    # Assign correct_city_id for each game to a random city
-    for game in mock_games:
-        game.correct_city_id = city1.id
-
-    # Add games
-    empty_db_session.add_all(mock_games)
+    empty_db_session.add_all([city1, city2, game1, game2])
     await empty_db_session.commit()
 
     yield empty_db_session

@@ -31,3 +31,23 @@ class TestGamesRouter:
             data = response.json()
             assert data["pagination"]["total_items"] == len(mock_games)
             assert len(data["items"]) == len(mock_games)
+
+    @pytest.mark.asyncio
+    async def test_create_new_game(self, test_client: AsyncClient, mock_game: Game) -> None:
+        """Tests creation of a new game."""
+        with patch(
+            "api.routers.games.initialize_game",
+            return_value=Game(
+                id=mock_game.id,
+                started_at=mock_game.started_at,
+                ended_at=mock_game.ended_at,
+                map_image="test_image",
+            ),
+        ):
+            response = await test_client.post("/games")
+
+            assert response.status_code == HTTPStatus.CREATED
+            data = response.json()
+            assert data["id"] == str(mock_game.id)
+            assert data["map_image"] == "test_image"
+            assert data["ended_at"] is None

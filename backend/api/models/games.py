@@ -2,11 +2,19 @@
 
 import uuid
 
-from sqlalchemy import UUID, Column, DateTime, Enum, ForeignKey, String, func
+from sqlalchemy import UUID, Column, DateTime, Enum, ForeignKey, String, Table, func
 from sqlalchemy.orm import relationship
 
 from api.database import Base
 from api.enums import Continent, Country
+
+# Association table for many-to-many relationship between Game and City
+game_cities = Table(
+    "game_cities",
+    Base.metadata,
+    Column("game_id", UUID(as_uuid=True), ForeignKey("games.id"), primary_key=True),
+    Column("city_id", UUID(as_uuid=True), ForeignKey("cities.id"), primary_key=True),
+)
 
 
 class Game(Base):
@@ -23,6 +31,8 @@ class Game(Base):
     guesses = relationship("Guess", back_populates="game", lazy="selectin")
     correct_city_id = Column(UUID, ForeignKey("cities.id"))
     correct_city = relationship("City", lazy="selectin")
+    # Many-to-many relationship to cities
+    cities = relationship("City", secondary=game_cities, back_populates="games", lazy="selectin")
 
 
 class City(Base):
@@ -42,6 +52,8 @@ class City(Base):
     # relationships
     guesses = relationship("Guess", back_populates="city", lazy="selectin")
     games_as_correct = relationship("Game", back_populates="correct_city", lazy="selectin")
+    # Many-to-many relationship to games
+    games = relationship("Game", secondary=game_cities, back_populates="cities", lazy="selectin")
 
 
 class Guess(Base):
