@@ -29,7 +29,7 @@ async def retrieve_games_endpoint(
     )
 
 
-@games_router.post("", operation_id="createGame")
+@games_router.post("", operation_id="createGame", status_code=201)
 async def create_game_endpoint(
     db: AsyncSession = Depends(get_db),
 ) -> GameOut:
