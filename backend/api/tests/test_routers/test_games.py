@@ -46,7 +46,7 @@ class TestGamesRouter:
         ):
             response = await test_client.post("/games")
 
-            assert response.status_code == HTTPStatus.OK
+            assert response.status_code == HTTPStatus.CREATED
             data = response.json()
             assert data["id"] == str(mock_game.id)
             assert data["map_image"] == "test_image"
