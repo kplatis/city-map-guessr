@@ -22,7 +22,7 @@ async def db_session() -> AsyncGenerator[AsyncSession, None]:
 
 @pytest_asyncio.fixture(name="mock_city")
 async def mock_city_object() -> City:
-    """Provides a list of mock cities"""
+    """Provides a mock city object"""
     return City(
         id=uuid.uuid4(),
         name="City 1",
@@ -36,7 +36,7 @@ async def mock_city_object() -> City:
 
 @pytest_asyncio.fixture(name="mock_game")
 async def mock_game_object(mock_city: City) -> Game:
-    """Provides a list of mock games"""
+    """Provides a mock game object"""
     return Game(
         id=uuid.uuid4(),
         started_at=datetime.datetime(2025, 11, 30, 10, 0, 0, tzinfo=datetime.UTC),
