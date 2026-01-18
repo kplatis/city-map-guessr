@@ -34,7 +34,7 @@ class TestGamesRouter:
 
     @pytest.mark.asyncio
     async def test_create_new_game(self, test_client: AsyncClient, mock_game: Game) -> None:
-        """Tests retrieval of the games."""
+        """Tests creation of a new game."""
         with patch(
             "api.routers.games.initialize_game",
             return_value=Game(
