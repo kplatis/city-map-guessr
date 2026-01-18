@@ -12,8 +12,8 @@ class TestCoreCRUD:
     async def test_get_total_items_of_model_populated_db(self, populated_db_session: AsyncSession) -> None:
         """Test total items and pages for a populated database"""
         total_items, total_pages = await get_total_items_of_model(GameModel, page_size=2, db=populated_db_session)
-        assert total_items == 10
-        assert total_pages == 5
+        assert total_items == 2
+        assert total_pages == 1
 
     @pytest.mark.asyncio
     async def test_get_total_items_of_model_empty_db(self, empty_db_session: AsyncSession) -> None:

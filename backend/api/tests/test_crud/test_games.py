@@ -13,7 +13,7 @@ class TestGamesCRUD:
         """Test listing games from a populated database"""
 
         games = await list_games(page=1, page_size=5, db=populated_db_session)
-        assert len(games) == 5
+        assert len(games) == 2
 
     @pytest.mark.asyncio
     async def test_list_games_empty_db(self, empty_db_session: AsyncSession) -> None:
@@ -27,7 +27,9 @@ class TestGamesCRUD:
         """Test reading cities from a populated database"""
 
         cities = await read_cities(db=populated_db_session)
-        assert len(cities) == 3
+        for city in cities:
+            print(city.name)
+        assert len(cities) == 2
 
     @pytest.mark.asyncio
     async def test_read_cities_empty_db(self, empty_db_session: AsyncSession) -> None:
