@@ -1,0 +1,39 @@
+name: 🔍 Check code quality
+
+on:
+  pull_request: {}
+
+jobs:
+  pre_commit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.11
+
+      - name: Install Poetry
+        uses: snok/install-poetry@v1
+
+      - name: Install Project Dependencies
+        run: poetry install --no-root
+        working-directory: backend
+
+      - name: Run pre-commit on PR changes
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --from-ref origin/${{ github.base_ref }} --to-ref HEAD
+        if: github.event_name == 'pull_request'
+
+      - name: Run pre-commit on push changes
+        uses: pre-commit/action@v3.0.1
+        with:
+          extra_args: --from-ref ${{ github.event.before }} --to-ref HEAD
+        if: github.event_name == 'push' && github.event.before != '0000000000000000000000000000000000000000'
+        continue-on-error: true
