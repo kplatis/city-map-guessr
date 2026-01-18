@@ -27,8 +27,6 @@ class TestGamesCRUD:
         """Test reading cities from a populated database"""
 
         cities = await read_cities(db=populated_db_session)
-        for city in cities:
-            print(city.name)
         assert len(cities) == 2
 
     @pytest.mark.asyncio
